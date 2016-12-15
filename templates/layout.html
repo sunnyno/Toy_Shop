@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Toy e-Shop</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'site.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'header.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'filter.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'other.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'order.css' %}"/>
+     <script src="{% static 'site.js' %}"></script>
+    <script src="{% static 'jquery-3.1.1.js' %}"></script>
+</head>
+
+<body>
+<div class="header">
+    <div class="container">
+        <div class="left">
+            <a href="/" class="header-item">Product List</a>
+        </div>
+        <div class="right">
+            <!--suppress HtmlUnknownTarget -->
+            <a href="/admin" class="header-item">Administration</a>
+        </div>
+        {% if number_in_cart != 0 %}
+            <div class="right">
+                <!--suppress HtmlUnknownTarget -->
+                <a href="/order" class="header-item">Cart: {{ number_in_cart }}</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container body-content">
+    {% block content %}{% endblock %}
+</div>
+
+<div id="modal" class="modal">
+    <div id="modal-image" class="modal-image">
+        <span class="close" onclick="closeModal()">×</span>
+        <div id="caption"></div>
+    </div>
+    <div id="modal-text" class="modal-text">
+        <div class="modal-header">
+            <b>Order created</b>
+        </div>
+        <div class="modal-body">
+            We will contact you in a short time...
+        </div>
+        <div class="modal-button button">
+            OK
+        </div>
+    </div>
+</div>
+
+{#    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>#}
+{#    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>#}
+{#    <script src="{% static 'app/scripts/respond.js' %}"></script>#}
+{#{% block scripts %}{% endblock %}#}
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+    {# Filters#}
+    <div class="filter">
+        <div class="filter-header"><b>Filter</b></div>
+        <b>By producer</b><br>
+        {% for producer in producers %}
+            {% if producer.id in filtered_producers %}
+                <input type="checkbox" value="{{ producer.id }}" name="producer" title="123"
+                       onchange="producerChecked(value, this)" checked>{{ producer.name }}<br>
+            {% else %}
+                <input type="checkbox" value="{{ producer.id }}" name="producer" title="123"
+                       onchange="producerChecked(value, this)">{{ producer.name }}<br>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        <b>By age</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="filterChanged('age', 'from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From"
+                        onchange="filterChanged('age', name, value)"
+                        value="{{ age_from }}" align="right"><br/>
+            <div class="filter-close" onclick="filterChanged('age', 'to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To"
+                      onchange="filterChanged('age', name, value)"
+                      value="{{ age_to }}" align="right"><br/>
+        </div>
+        <hr>
+        <b>By price</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="filterChanged('price', 'from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From"
+                        onchange="filterChanged('price', name, value)"
+                        value="{{ price_from }}" align="right"><br/>
+            <div class="filter-close" onclick="filterChanged('price', 'to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To"
+                      onchange="filterChanged('price', name, value)"
+                      value="{{ price_to }}" align="right"><br/>
+        </div>
+
+    </div>
+
+    {% for toy in toys %}
+        <div class="store-item">
+            <div class="inner">
+                <img src="media/{{ toy.image }}" alt="{{ toy.name }}" class="store-image"
+                     />
+                <div class="store-item-title"><b>{{ toy.name }}</b></div>
+                <div class="store-item-button button" onclick="buy('{{ toy.id }}')">Add</div>
+                <div class="store-item-updown button" onclick="inc('{{ toy.id }}')"><b>+</b></div>
+                <div class="store-item-title">${{ toy.price }}</div>
+                <div id="{{ toy.id }}-number" class="store-item-number">1</div>
+                <div class="store-item-updown button" onclick="dec('{{ toy.id }}')"><b>-</b></div>
+                <p class="description"><b>Made by </b>{{ toy.producer.name }}<br/>
+                    <b>For children of age: </b>{{ toy.age }}+<br/>
+
+                       {{ toy.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
